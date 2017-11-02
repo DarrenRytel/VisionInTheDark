@@ -16,6 +16,8 @@ player = Player(screen_width / 2 - 32, screen_height / 2 - 32)
 
 generate_a_map()
 
+fog_radius = 0
+
 # game while loop
 running = True
 while running:
@@ -27,9 +29,14 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
             generate_a_map()
 
+    if fog_radius > 128:
+        fog_radius += 1
+    else:
+        fog_radius = 0
+
     # running core gameplay elements
     #render_map()
-    vision_mechanic(int(round(player.pos.x + 32)), int(round(player.pos.y + 32)))
+    vision_mechanic(int(round(player.pos.x + 32)), int(round(player.pos.y + 32)), fog_radius)
     player.render(screen)
     player_movement(player)
 
